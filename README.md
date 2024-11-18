@@ -4,7 +4,7 @@
 
 [h2-console](http://localhost:8080/h2-console/)
 
-## Resumo do capítolo 2
+## Resumo do capítulo 2
 ### Modelo de Domínio e ORM
 
 __OBS 1:__ quando há uma ligação N x N entre as classes não é obrigatório criar uma classe de associação
