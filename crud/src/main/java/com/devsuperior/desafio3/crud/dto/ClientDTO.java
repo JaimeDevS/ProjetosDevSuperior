@@ -1,33 +1,35 @@
-package com.devsuperior.desafio3.crud.entities;
+package com.devsuperior.desafio3.crud.dto;
 
 import java.time.LocalDate;
-import java.util.Objects;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import com.devsuperior.desafio3.crud.entities.Client;
 
-@Entity
-@Table(name = "tb_client")
-public class Client {
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Past;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+public class ClientDTO {
+
 	private Long id;
+	
+	@NotBlank(message = "Campo requerido")
 	private String name;
 	private String cpf;
 	private Double income;
 	
-	@Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
+	@Past(message = "Não pode ser data futura")
 	private LocalDate birthDate;
 	private Integer children;
 	
-	public Client() {}
+	public ClientDTO(Client entity) {
+		id = entity.getId();
+		name = entity.getName();
+		cpf = entity.getCpf();
+		income = entity.getIncome();
+		birthDate = entity.getBirthDate();
+		children = entity.getChildren();
+	}
 
-	public Client(Long id, String name, String cpf, Double income, LocalDate birthDate, Integer children) {
+	public ClientDTO(Long id, String name, String cpf, Double income, LocalDate birthDate, Integer children) {
 		this.id = id;
 		this.name = name;
 		this.cpf = cpf;
@@ -82,23 +84,6 @@ public class Client {
 
 	public void setChildren(Integer children) {
 		this.children = children;
-	}
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(birthDate);
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Client other = (Client) obj;
-		return Objects.equals(birthDate, other.birthDate);
 	}
 	
 }
